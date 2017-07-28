@@ -3,7 +3,7 @@
     //console.log('Starting app.js');
     var app = angular.module('app', []);
 
-    app.provider('books', function(constants) {
+    app.provider('books', ['constants', function(constants) {
             this.$get = function() {
                 var appName = constants.APP_TITLE;
                 var appDesc = constants.APP_DESCRIPTION;
@@ -27,7 +27,7 @@
             };
 
 
-        });
+        }]);
 
 
 
@@ -35,4 +35,6 @@
         //console.log('In config method');
         booksProvider.setIncludeVersionInTitle(true);
     });
+
+    app.config.$inject = ['booksProvider'];
 }());

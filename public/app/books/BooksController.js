@@ -2,8 +2,7 @@
 
     //console.log('Starting BooksController.js');
     angular.module('app')
-        .controller('BooksController', BooksController);
-
+        .controller('BooksController', ['books', 'dataService','logger','badgeService', BooksController]);
 
     function BooksController(books, dataService,logger,badgeService) {
         //console.log('Inside BooksController');
