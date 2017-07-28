@@ -1,6 +1,6 @@
 //TODO: Change Syntax to ES6
 (function() {
-
+    //console.log('Starting app.js');
     var app = angular.module('app', []);
 
     app.provider('books', function() {
@@ -9,8 +9,7 @@
                 var appDesc = 'Track which books you read.';
                 var version = '1.0';
 
-                console.log('Inside $get method');
-                //console.log(includeVersionInTitle);
+                //console.log('Inside $get method');
                 if(includeVersionInTitle){
                     appName += ' '+version; 
                 }
@@ -21,7 +20,7 @@
                 };
             };
 
-            console.log('Inside provider method');
+            //console.log('Inside provider method');
             var includeVersionInTitle = false;
             this.setIncludeVersionInTitle = function(value){
                 includeVersionInTitle = value;
@@ -33,7 +32,7 @@
 
 
     app.config(function(booksProvider){
-        console.log('In config method');
+        //console.log('In config method');
         booksProvider.setIncludeVersionInTitle(true);
     });
 }());

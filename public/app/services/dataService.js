@@ -1,9 +1,13 @@
 (function() {
+    //console.log('Starting dataService.js');
+
     angular.module('app')
        //The second param should return a service
       .factory('dataService',dataService);
     
     function dataService() {
+        //console.log('Inside dataService');
+
         return {
             getAllBooks: getAllBooks,
             getAllReaders: getAllReaders
