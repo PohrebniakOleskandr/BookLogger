@@ -42,13 +42,13 @@
                     reader_id: 1,
                     name: 'Sasha',
                     weeklyReadingGoal: 310,
-                    totalMinutesRead: 2000
+                    totalMinutesRead: 3000
                 },
                 {
                     reader_id: 2,
                     name: 'Katya',
                     weeklyReadingGoal: 200,
-                    totalMinutesRead: 800
+                    totalMinutesRead: 6000
                 },
                 {
                     reader_id: 3,

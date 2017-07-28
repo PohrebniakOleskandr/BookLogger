@@ -1,7 +1,7 @@
 (function() {
     angular.module('app')
         .service('logger', BookAppLogger);
-        
+          
     function LoggerBase(){
 
     }

@@ -3,11 +3,11 @@
     //console.log('Starting app.js');
     var app = angular.module('app', []);
 
-    app.provider('books', function() {
+    app.provider('books', function(constants) {
             this.$get = function() {
-                var appName = 'Book Logger';
-                var appDesc = 'Track which books you read.';
-                var version = '1.0';
+                var appName = constants.APP_TITLE;
+                var appDesc = constants.APP_DESCRIPTION;
+                var version = constants.APP_VERSION;
 
                 //console.log('Inside $get method');
                 if(includeVersionInTitle){
