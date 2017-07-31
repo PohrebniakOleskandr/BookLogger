@@ -1,7 +1,7 @@
 //TODO: Change Syntax to ES6
 (function() {
     //console.log('Starting app.js');
-    var app = angular.module('app', []);
+    var app = angular.module('app', ['ngRoute']);
 
     app.provider('books', ['constants', function(constants) {
             this.$get = function() {
@@ -31,10 +31,29 @@
 
 
 
-    app.config(function(booksProvider){
+    app.config(function(booksProvider,$routeProvider){
         //console.log('In config method');
         booksProvider.setIncludeVersionInTitle(true);
+
+        $routeProvider
+            .when('/',{
+                templateUrl: '/app/templates/books.html',
+                controller: 'BooksController',
+                controllerAs: 'books'
+            })
+            .when('/addbook',{
+                templateUrl: '/app/templates/addbook.html',
+                controller: 'AddBookController',
+                controllerAs: 'addBook'
+            })
+            .when('/editbook/:bookID',{
+                templateUrl: '/app/templates/editbook.html',
+                controller: 'EditBookController',
+                controllerAs: 'bookEditor'
+            })
+            .otherwise('/')
+            ;
     });
 
-    app.config.$inject = ['booksProvider'];
+    app.config.$inject = ['booksProvider','$routeProvider'];
 }());
