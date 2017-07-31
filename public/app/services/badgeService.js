@@ -7,7 +7,7 @@
         });
 
     function retrieveBadge (minutesRead) {
-        console.log(minutesRead);
+        //console.log(minutesRead);
         var badge = null;
 
         switch(true) {

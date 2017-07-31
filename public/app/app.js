@@ -1,7 +1,7 @@
 //TODO: Change Syntax to ES6
 (function() {
     //console.log('Starting app.js');
-    var app = angular.module('app', ['ngRoute']);
+    var app = angular.module('app', ['ngRoute','ngCookies']);
 
     app.provider('books', ['constants', function(constants) {
             this.$get = function() {
@@ -52,6 +52,7 @@
                 controllerAs: 'bookEditor',
                 resolve: {
                     books: function(dataService) {
+                        //throw 'error 312313';
                         return dataService.getAllBooks();
                     }
                 }
@@ -59,6 +60,23 @@
             .otherwise('/')
             ;
     });
+
+    app.run(['$rootScope', function($rootScope){
+        //console.log('Inside of app.run');
+        $rootScope.$on('$routeChangeSuccess', function(event, current, previous){
+            console.log('successfully changed routes');
+        });
+
+        $rootScope.$on('$routeChangeError',  function(event, current, previous, rejection){
+            console.log('error changing routes');
+
+            console.log('event '+event);
+            console.log('current '+current);
+            console.log('previous '+previous);
+            console.log('rejection '+rejection);
+        });
+        
+    }]);
 
     app.config.$inject = ['booksProvider','$routeProvider'];
 }());

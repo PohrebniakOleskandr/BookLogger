@@ -2,17 +2,26 @@
 
     //console.log('Starting BooksController.js');
     angular.module('app')
-        .controller('BooksController', ['books', 'dataService','logger','badgeService', BooksController]);
+        .controller('BooksController', ['books',
+        'dataService',
+        'logger',
+        'badgeService',   
+        '$cookies',
+        '$cookieStore',         
+         BooksController]);
 
-    function BooksController(books, dataService,logger,badgeService) {
-        //console.log('Inside BooksController');
+    function BooksController(books, 
+        dataService,
+        logger,
+        badgeService,
+        $cookies,
+        $cookieStore 
+    ) {
+       
         var vm = this;
 
         vm.appName = books.appName;
 
-
-        //vm.allBooks = dataService.getAllBooks();
-        // ---------------------------->
         dataService.getAllBooks()
             .then(getBooksSuccess, getBooksError);
         
@@ -22,17 +31,15 @@
 
         function getBooksError(reason){
             console.log(reason);
-        }
-        
-        
+        }    
         
         vm.allReaders = dataService.getAllReaders();
-
-        //console.log(badgeService.retrieveBadge);
-        //badgeService.retrieveBadge('2500');
         vm.getBadge = badgeService.retrieveBadge;
 
-        //logger.output('Testing logger service');
+        vm.favoriteBook = $cookies.favoriteBook;
+        vm.lastEdited = $cookieStore.get('lastEdited');
+        
+
 
     }
 
