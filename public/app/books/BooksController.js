@@ -9,7 +9,23 @@
         var vm = this;
 
         vm.appName = books.appName;
-        vm.allBooks = dataService.getAllBooks();
+
+
+        //vm.allBooks = dataService.getAllBooks();
+        // ---------------------------->
+        dataService.getAllBooks()
+            .then(getBooksSuccess, getBooksError);
+        
+        function getBooksSuccess(books){
+            vm.allBooks = books;
+        }
+
+        function getBooksError(reason){
+            console.log(reason);
+        }
+        
+        
+        
         vm.allReaders = dataService.getAllReaders();
 
         //console.log(badgeService.retrieveBadge);

@@ -3,9 +3,9 @@
 
     angular.module('app')
        //The second param should return a service
-      .factory('dataService',dataService);
+      .factory('dataService', ['$q', '$timeout', dataService]);
     
-    function dataService() {
+    function dataService($q, $timeout) {
         //console.log('Inside dataService');
 
         return {
@@ -14,7 +14,7 @@
         };
 
         function getAllBooks () {
-            return [
+            var booksArray=  [
                 {
                     book_id: 1,
                     title: 'Harry Potter and the Deadly Hallows',
@@ -34,6 +34,20 @@
                     year_published: 1963
                 }
             ];
+            var deferred = $q.defer();
+
+            $timeout(function(){
+                var succesful = true;
+
+                if(succesful){
+                    deffered.resolve(booksArray);
+                }
+                else {
+                    deffered.reject('Error retrieving books...');
+                }
+            }, 1000);
+
+            return deffered.promise;
         }
 
         function getAllReaders(){
