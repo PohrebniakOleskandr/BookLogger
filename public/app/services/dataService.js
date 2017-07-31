@@ -34,7 +34,7 @@
                     year_published: 1963
                 }
             ];
-            var deferred = $q.defer();
+            var deffered = $q.defer();
 
             $timeout(function(){
                 var succesful = true;
