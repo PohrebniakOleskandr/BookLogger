@@ -64,11 +64,23 @@
                 url: 'api/books',
                 headers: {
                     'PS-BookLogger-Version': constants.APP_VERSION
-                }
+                },
+                transformResponse: transformGetBooks
             })
                 .then(sendResponseData)
                 .catch(sendGetBooksError);
             
+        }
+
+        function transformGetBooks(data, headersGetter){
+            var transformed = angular.fromJson(data);
+
+            transformed.forEach(function(currentValue){
+                currentValue.dateDownloaded = new Date();
+            });
+
+            console.log(transformed);
+            return transformed;
         }
 
         function sendResponseData(response){
@@ -80,10 +92,12 @@
         }
 
         function getBookByID(bookID) {
-            return $http({
-                method: 'GET',
-                url: 'api/books/'+bookID
-            })                
+
+            // return $http({
+            //     method: 'GET',
+            //     url: 'api/books/'+bookID
+            // })         
+            return $http.get('api/books/'+bookID)
                 .then(sendResponseData)
                 .catch(sendGetBooksError);
         }
@@ -108,13 +122,24 @@
         }
 
         function addBook(newBook){
-            return $http({
-                method: 'POST',
-                url: 'api/books',
-                data: newBook
+            // return $http({
+            //     method: 'POST',
+            //     url: 'api/books',
+            //     data: newBook
+            // })
+            return $http.post('api/books',newBook,{
+                transformRequest: transformPostRequest
             })
                 .then(addBookSuccess)
                 .catch(addBookError);
+        }
+
+        function transformPostRequest(data,headersGetter){
+            data.newBook = true;
+
+            console.log(data);
+
+            return JSON.stringify(data); 
         }
 
         function addBookSuccess(response){

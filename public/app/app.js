@@ -64,7 +64,7 @@
     app.run(['$rootScope', function($rootScope){
         //console.log('Inside of app.run');
         $rootScope.$on('$routeChangeSuccess', function(event, current, previous){
-            console.log('successfully changed routes');
+            //console.log('successfully changed routes');
         });
 
         $rootScope.$on('$routeChangeError',  function(event, current, previous, rejection){

@@ -28,5 +28,17 @@
         "title": "Generation P",
         "author": "Viktor Pelevin",
         "year_published": "1998"
+    },
+    {
+        "book_id": 63,
+        "title": "The Life of Insects",
+        "author": "Viktor Pelevin",
+        "year_published": "2006"
+    },
+    {
+        "book_id": 64,
+        "title": "Alice in Wonderland",
+        "author": "Lewus Caroll",
+        "year_published": "1865"
     }
 ]
