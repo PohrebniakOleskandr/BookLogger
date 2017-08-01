@@ -1,7 +1,7 @@
 //TODO: Change Syntax to ES6
 (function() {
     //console.log('Starting app.js');
-    var app = angular.module('app', ['ngRoute','ngCookies']);
+    var app = angular.module('app', ['ngRoute','ngCookies', 'ngResource']);
 
     app.provider('books', ['constants', function(constants) {
             this.$get = function() {

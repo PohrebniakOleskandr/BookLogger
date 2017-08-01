@@ -10,6 +10,7 @@
         '$cookieStore', 
         '$log',
         '$route',        
+        'BooksResource',
          BooksController]);
 
     function BooksController(books, 
@@ -19,18 +20,22 @@
         $cookies,
         $cookieStore,
         $log,
-        $route 
+        $route,
+        BooksResource
     ) {
         
         var vm = this;
 
         vm.appName = books.appName;
 
-        dataService.getAllBooks()
-            .then(getBooksSuccess, null, getBooksNotification)
-            .catch(getBooksError)
-            .finally(getAllBooksComplete)
-            ;
+        // Use BooksResource instead:
+
+        // dataService.getAllBooks()
+        //     .then(getBooksSuccess, null, getBooksNotification)
+        //     .catch(getBooksError)
+        //     .finally(getAllBooksComplete);
+
+        vm.allBooks = BooksResource.query();
         
         function getBooksSuccess(books){
             vm.allBooks = books;
