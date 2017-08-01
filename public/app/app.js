@@ -50,12 +50,12 @@
                 templateUrl: '/app/templates/editbook.html',
                 controller: 'EditBookController',
                 controllerAs: 'bookEditor',
-                resolve: {
+                /*resolve: {
                     books: function(dataService) {
                         //throw 'error 312313';
                         return dataService.getAllBooks();
                     }
-                }
+                }*/
             })
             .otherwise('/')
             ;

@@ -10,8 +10,13 @@
 
         return {
             getAllBooks: getAllBooks,
-            getAllReaders: getAllReaders
+            getAllReaders: getAllReaders,
+            getBookByID: getBookByID,
+            updateBook: updateBook
         };
+
+
+
 
         function getAllBooks () {
 
@@ -70,6 +75,34 @@
 
         function sendGetBooksError(){
             return $q.reject('Error retrieving book(s). (HTTP status '+response.status+')');
+        }
+
+        function getBookByID(bookID) {
+            return $http({
+                method: 'GET',
+                url: 'api/books/'+bookID
+            })                
+                .then(sendResponseData)
+                .catch(sendGetBooksError);
+        }
+
+        function updateBook(book){
+
+            return $http({
+                method: 'PUT',
+                url: 'api/books/'+book.book_id,
+                data: book
+            }) 
+                .then(updateBookSuccess)
+                .catch(updateBookError);
+        }
+
+        function updateBookSuccess(response){
+            return 'Book updated ' + response.config.data.title;
+        }
+
+        function updateBookError(){
+            return $q.reject('Error updating book.(HTTP status: '+response.status+')');
         }
 
         function getAllReaders(){
