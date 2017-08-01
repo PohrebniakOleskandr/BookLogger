@@ -34,5 +34,11 @@
         "title": "Green Eggs and Ham",
         "author": "Dr. Seuss",
         "year_published": "1960"
+    },
+    {
+        "book_id": 62,
+        "title": "Generation P",
+        "author": "Viktor Pelevin",
+        "year_published": "1998"
     }
 ]

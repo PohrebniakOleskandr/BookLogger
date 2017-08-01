@@ -44,7 +44,7 @@
             .when('/addbook',{
                 templateUrl: '/app/templates/addbook.html',
                 controller: 'AddBookController',
-                controllerAs: 'addBook'
+                controllerAs: 'bookAdder'
             })
             .when('/editbook/:bookID',{
                 templateUrl: '/app/templates/editbook.html',
