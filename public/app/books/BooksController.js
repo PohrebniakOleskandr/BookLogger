@@ -23,15 +23,26 @@
         vm.appName = books.appName;
 
         dataService.getAllBooks()
-            .then(getBooksSuccess, getBooksError);
+            .then(getBooksSuccess, null, getBooksNotification)
+            .catch(getBooksError)
+            .finally(getAllBooksComplete)
+            ;
         
         function getBooksSuccess(books){
             vm.allBooks = books;
         }
 
+        function getBooksNotification(notification){
+            //console.log('Promise notification '+notification);
+        }
+
         function getBooksError(reason){
-            console.log(reason);
+            console.log('Error Message '+reason);
         }    
+
+        function getAllBooksComplete(){
+            //console.log('getAllBooks has completed')
+        }
         
         vm.allReaders = dataService.getAllReaders();
         vm.getBadge = badgeService.retrieveBadge;
