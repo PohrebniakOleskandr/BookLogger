@@ -1,11 +1,5 @@
 [
     {
-        "book_id": 1,
-        "title": "Anna Karen",
-        "author": "Leo Tolstoy",
-        "year_published": "1878"
-    },
-    {
         "book_id": 2,
         "title": "The Things They Carried",
         "author": "Tim O'Brien",
@@ -28,12 +22,6 @@
         "title": "The Cat and the Hat",
         "author": "Dr. Seuss",
         "year_published": "1950"
-    },
-    {
-        "book_id": 61,
-        "title": "Green Eggs and Ham",
-        "author": "Dr. Seuss",
-        "year_published": "1960"
     },
     {
         "book_id": 62,

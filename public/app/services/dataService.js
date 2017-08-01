@@ -13,7 +13,8 @@
             getAllReaders: getAllReaders,
             getBookByID: getBookByID,
             updateBook: updateBook,
-            addBook: addBook 
+            addBook: addBook,
+            deleteBook:deleteBook
         };
 
 
@@ -122,6 +123,23 @@
 
         function addBookError(response){
             return $q.reject('Error adding book.(HTTP status: '+response.status+')');
+        }
+        
+        function deleteBook(bookID){
+            return $http({
+                method: 'DELETE',
+                url: 'api/books/'+ bookID
+            })
+                .then(deleteBookSuccess)
+                .catch(deleteBookError);
+        }
+
+        function deleteBookSuccess(){
+            return 'Book deleted';
+        }
+
+        function deleteBookError(){
+            return $q.reject('Error deleting book.(HTTP status: '+response.status+')');
         }
 
         function getAllReaders(){

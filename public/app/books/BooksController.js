@@ -7,7 +7,9 @@
         'logger',
         'badgeService',   
         '$cookies',
-        '$cookieStore',         
+        '$cookieStore', 
+        '$log',
+        '$route',        
          BooksController]);
 
     function BooksController(books, 
@@ -15,7 +17,9 @@
         logger,
         badgeService,
         $cookies,
-        $cookieStore 
+        $cookieStore,
+        $log,
+        $route 
     ) {
        
         var vm = this;
@@ -42,6 +46,21 @@
 
         function getAllBooksComplete(){
             //console.log('getAllBooks has completed')
+        }   
+
+        vm.deleteBook = function(bookID) {
+            dataService.deleteBook(bookID)
+                .then(deleteBookSuccess)
+                .catch(deleteBookError)
+        }
+
+        function deleteBookSuccess(message){
+            $log.info(message);
+            $route.reload(); 
+        }
+
+        function deleteBookError(errorMessage){
+            $log.error(errorMessage);
         }
         
         vm.allReaders = dataService.getAllReaders();
@@ -50,8 +69,6 @@
         vm.favoriteBook = $cookies.favoriteBook;
         vm.lastEdited = $cookieStore.get('lastEdited');
         
-
-
     }
 
 
