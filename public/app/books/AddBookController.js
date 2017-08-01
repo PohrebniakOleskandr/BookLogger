@@ -3,6 +3,7 @@
         .controller('AddBookController', ['$log', '$location', 'dataService', AddBookController]);
     
     function AddBookController($log, $location, dataService) {
+
         var vm = this;
 
         vm.newBook = {};

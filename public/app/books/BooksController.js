@@ -21,7 +21,7 @@
         $log,
         $route 
     ) {
-       
+        
         var vm = this;
 
         vm.appName = books.appName;

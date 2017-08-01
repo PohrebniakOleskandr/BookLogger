@@ -31,9 +31,14 @@
 
 
 
-    app.config(function(booksProvider,$routeProvider){
+    app.config(function(booksProvider,$routeProvider,$httpProvider,$logProvider){
         //console.log('In config method');
         booksProvider.setIncludeVersionInTitle(true);
+        
+        $logProvider.debugEnabled(true);
+        
+
+        $httpProvider.interceptors.push('bookLoggerInterceptor');
 
         $routeProvider
             .when('/',{
@@ -57,8 +62,7 @@
                     }
                 }*/
             })
-            .otherwise('/')
-            ;
+            .otherwise('/');
     });
 
     app.run(['$rootScope', function($rootScope){
@@ -78,5 +82,5 @@
         
     }]);
 
-    app.config.$inject = ['booksProvider','$routeProvider'];
+    app.config.$inject = ['booksProvider','$routeProvider','$httpProvider','$logProvider'];
 }());
