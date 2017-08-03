@@ -36,14 +36,15 @@
             vm.summaryData = summaryData;
         }
 
-        // Use BooksResource instead:
+        //Тоже самое, но с другим сервисом:
+        //vm.allBooks = BooksResource.query();
 
-        // dataService.getAllBooks()
-        //     .then(getBooksSuccess, null, getBooksNotification)
-        //     .catch(getBooksError)
-        //     .finally(getAllBooksComplete);
+        dataService.getAllBooks()
+            .then(getBooksSuccess, null, getBooksNotification)
+            .catch(getBooksError)
+            .finally(getAllBooksComplete);
 
-        vm.allBooks = BooksResource.query();
+        
         
         function getBooksSuccess(books){
             vm.allBooks = books;

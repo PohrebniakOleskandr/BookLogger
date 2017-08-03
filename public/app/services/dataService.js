@@ -19,6 +19,13 @@
         };
 
 
+        function deleteAllBooksResponseFromCache() {
+
+            var httpCache = $cacheFactory.get('$http');
+            httpCache.remove('api/books');
+        }
+
+
         function getUserSummary(){
 
             var deffered = $q.defer(); //объявить промис
@@ -66,52 +73,21 @@
             return deffered.promise; //вернуть промис
         }
 
+        function deleteSummaryFromCache(){
+            var dataCache = $cacheFactory.get('bookLoggerCache');
+            dataCache.remove('summary');
+        }
+
         function getAllBooks () {
-
-            //previous hardcodeded data:
-
-            // var booksArray=  [
-            //     {
-            //         book_id: 1,
-            //         title: 'Harry Potter and the Deadly Hallows',
-            //         author: 'J.K. Rowling',
-            //         year_published: 2000
-            //     },
-            //     {
-            //         book_id: 2,
-            //         title: 'The Cat in the Hat',
-            //         author: 'Dr. Seuss',
-            //         year_published: 1957
-            //     },
-            //     {
-            //         book_id: 3,
-            //         title: 'Encyclopedia Brown, Boy Detective',
-            //         author: 'Donald J. Sobol',
-            //         year_published: 1963
-            //     }
-            // ];
-            // var deffered = $q.defer();
-
-            // $timeout(function(){
-            //     var succesful = true;
-
-            //     if(succesful){
-            //         deffered.resolve(booksArray);
-            //     }
-            //     else {
-            //         deffered.reject('Error retrieving books...');
-            //     }
-            // }, 1000);
-
-            // return deffered.promise;
-
+            
             return $http({
                 method: 'GET',
                 url: 'api/books',
                 headers: {
                     'PS-BookLogger-Version': constants.APP_VERSION
                 },
-                transformResponse: transformGetBooks
+                transformResponse: transformGetBooks,
+                cache: true
             })
                 .then(sendResponseData)
                 .catch(sendGetBooksError);
@@ -150,6 +126,9 @@
 
         function updateBook(book){
 
+            deleteSummaryFromCache();
+            deleteAllBooksResponseFromCache();
+
             return $http({
                 method: 'PUT',
                 url: 'api/books/'+book.book_id,
@@ -168,6 +147,10 @@
         }
 
         function addBook(newBook){
+
+            deleteSummaryFromCache();
+            deleteAllBooksResponseFromCache();
+
             // return $http({
             //     method: 'POST',
             //     url: 'api/books',
@@ -197,6 +180,10 @@
         }
         
         function deleteBook(bookID){
+            
+            deleteAllBooksResponseFromCache();
+            deleteSummaryFromCache();
+
             return $http({
                 method: 'DELETE',
                 url: 'api/books/'+ bookID
