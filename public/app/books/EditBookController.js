@@ -2,67 +2,79 @@
     angular.module('app')
         .controller('EditBookController', [
             '$routeParams',
-            /*'books',*/
+            'books',
             '$cookies',
             '$cookieStore',
             'dataService',
             '$log',
             '$location',
             'BooksResource',
+            'currentUser',
             EditBookController]);
 
     function EditBookController(
         $routeParams,
-        /*books,*/
+        books,
         $cookies,
         $cookieStore,
         dataService,
         $log,
         $location,
-        BooksResource
+        BooksResource,
+        currentUser
         ) {
 
+        
             var vm = this;
             
-            //previous hardcodeded example (without using new service methods):
-
+           
             // vm.currentBook = books.filter(function (item) {
             //     return item.book_id == $routeParams.bookID;
             // })[0];
 
-            // dataService.getBookByID($routeParams.bookID)
-            //     .then(getBookSuccess)
-            //     .catch(getBookError);
+            dataService.getBookByID($routeParams.bookID)
+                .then(getBookSuccess)
+                .catch(getBookError);
             
-            vm.currentBook = BooksResource.get({book_id: $routeParams.bookID});
+            //Example with using BooksResource:
+            //vm.currentBook = BooksResource.get({book_id: $routeParams.bookID});
 
-            //$log.log(vm.currentBook);
+           
+            function getBookSuccess(book){
 
-            // function getBookSuccess(book){
-            //     vm.currentBook = book;
-            //     $cookieStore.put('lastEdited', vm.currentBook);
-            // }            
+                vm.currentBook = book;
+                
+                //Storing in a cookie example
+                //$cookieStore.put('lastEdited', vm.currentBook);
+                
+                currentUser.lastBookEdited = vm.currentBook;
+                //console.log(currentUser.lastBookEdited);
 
-            // function getBookError(reason){
-            //     $log.error(reason);
-            // }
+                
+            }            
 
-            vm.saveBook = function(){
-                // dataService.updateBook(vm.currentBook)
-                //     .then(updateBookSuccess)
-                //     .catch(updateBookError);
-                vm.currentBook.$update();
-                 $location.path('/');  
+            function getBookError(reason){
+                $log.error(reason);
             }
 
-            // function updateBookSuccess(message){
-            //     $log.info(message);
-            //     $location.path('/');   
-            // }
+            vm.saveBook = function(){
+                dataService.updateBook(vm.currentBook)
+                    .then(updateBookSuccess)
+                    .catch(updateBookError);
+                
+                // Example with using BooksResource
+                // vm.currentBook.$update();
+                //  $location.path('/');  
+            }
 
-            // function updateBookError(errorMessage){
-            //     $log.error(errorMessage);
-            // }
+            function updateBookSuccess(message){
+                $log.info(message);
+                $location.path('/');   
+            }
+
+            function updateBookError(errorMessage){
+                $log.error(errorMessage);
+            }
 
             vm.setAsFavorite = function() {
                 $cookies.favoriteBook = vm.currentBook.title;

@@ -39,7 +39,7 @@
             var summaryFromCache = dataCache.get('summary');
 
             if(summaryFromCache){
-                console.log('Returned from cache...');
+                //console.log('Returned from cache...');
                 deffered.resolve(summaryFromCache);
 
             } else {
@@ -65,7 +65,7 @@
                         };
 
                         dataCache.put('summary', summaryData);
-                        console.log('Returned just now...');
+                        //console.log('Returned just now...');
                         deffered.resolve(summaryData); //это будет результатом его резолвт состояния
                     });
             }
@@ -101,7 +101,7 @@
                 currentValue.dateDownloaded = new Date();
             });
 
-            console.log(transformed);
+            //console.log(transformed);
             return transformed;
         }
 

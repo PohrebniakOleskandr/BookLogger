@@ -2,7 +2,8 @@
 
     //console.log('Starting BooksController.js');
     angular.module('app')
-        .controller('BooksController', ['books',
+        .controller('BooksController', [
+        'books',
         'dataService',
         'logger',
         'badgeService',   
@@ -11,9 +12,11 @@
         '$log',
         '$route',        
         'BooksResource',
+        'currentUser',
          BooksController]);
 
-    function BooksController(books, 
+    function BooksController(
+        books, 
         dataService,
         logger,
         badgeService,
@@ -21,8 +24,10 @@
         $cookieStore,
         $log,
         $route,
-        BooksResource
+        BooksResource,
+        currentUser
     ) {
+        
         
         var vm = this;
 
@@ -81,8 +86,12 @@
         vm.getBadge = badgeService.retrieveBadge;
 
         vm.favoriteBook = $cookies.favoriteBook;
-        vm.lastEdited = $cookieStore.get('lastEdited');
         
+        // Example Using cashing
+        //vm.lastEdited = $cookieStore.get('lastEdited');
+        
+        vm.currentUser = currentUser;
+        // console.log(currentUser.lastBookEdited);
     }
 
 
