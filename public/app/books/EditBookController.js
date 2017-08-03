@@ -36,31 +36,33 @@
             
             vm.currentBook = BooksResource.get({book_id: $routeParams.bookID});
 
-            $log.log(vm.currentBook);
+            //$log.log(vm.currentBook);
 
-            function getBookSuccess(book){
-                vm.currentBook = book;
-                $cookieStore.put('lastEdited', vm.currentBook);
-            }            
+            // function getBookSuccess(book){
+            //     vm.currentBook = book;
+            //     $cookieStore.put('lastEdited', vm.currentBook);
+            // }            
 
-            function getBookError(reason){
-                $log.error(reason);
-            }
+            // function getBookError(reason){
+            //     $log.error(reason);
+            // }
 
             vm.saveBook = function(){
-                dataService.updateBook(vm.currentBook)
-                    .then(updateBookSuccess)
-                    .catch(updateBookError);
+                // dataService.updateBook(vm.currentBook)
+                //     .then(updateBookSuccess)
+                //     .catch(updateBookError);
+                vm.currentBook.$update();
+                 $location.path('/');  
             }
 
-            function updateBookSuccess(message){
-                $log.info(message);
-                $location.path('/');   
-            }
+            // function updateBookSuccess(message){
+            //     $log.info(message);
+            //     $location.path('/');   
+            // }
 
-            function updateBookError(errorMessage){
-                $log.error(errorMessage);
-            }
+            // function updateBookError(errorMessage){
+            //     $log.error(errorMessage);
+            // }
 
             vm.setAsFavorite = function() {
                 $cookies.favoriteBook = vm.currentBook.title;

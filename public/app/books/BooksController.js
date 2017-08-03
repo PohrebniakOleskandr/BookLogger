@@ -28,6 +28,14 @@
 
         vm.appName = books.appName;
 
+
+        dataService.getUserSummary()
+            .then(getUserSummarySuccess);
+
+        function getUserSummarySuccess(summaryData){
+            vm.summaryData = summaryData;
+        }
+
         // Use BooksResource instead:
 
         // dataService.getAllBooks()

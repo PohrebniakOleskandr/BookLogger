@@ -3,9 +3,9 @@
 
     angular.module('app')
        //The second param should return a service
-      .factory('dataService', ['$q', '$timeout', '$http', 'constants', dataService]);
+      .factory('dataService', ['$q', '$timeout', '$http', 'constants', '$cacheFactory', dataService]);
     
-    function dataService($q, $timeout, $http, constants) {
+    function dataService($q, $timeout, $http, constants,$cacheFactory) {
         //console.log('Inside dataService');
 
         return {
@@ -14,11 +14,57 @@
             getBookByID: getBookByID,
             updateBook: updateBook,
             addBook: addBook,
-            deleteBook:deleteBook
+            deleteBook:deleteBook,
+            getUserSummary:getUserSummary
         };
 
 
+        function getUserSummary(){
 
+            var deffered = $q.defer(); //объявить промис
+
+            var dataCache = $cacheFactory.get('bookLoggerCache');
+
+            if(!dataCache) {
+                dataCache = $cacheFactory('bookLoggerCache');
+            }
+
+            var summaryFromCache = dataCache.get('summary');
+
+            if(summaryFromCache){
+                console.log('Returned from cache...');
+                deffered.resolve(summaryFromCache);
+
+            } else {
+            
+                var booksPromise = getAllBooks();
+                var readersPromise = getAllReaders();
+
+                $q.all([booksPromise,readersPromise])
+                    .then(function(bookLoggerData){
+                        var allBooks = bookLoggerData[0];
+                        var allReaders = bookLoggerData[1];
+
+                        var grandTotalMinutes = 0;
+
+                        allReaders.forEach(function(currentReader){
+                            grandTotalMinutes += currentReader.totalMinutesRead;
+                        });
+
+                        var summaryData = {
+                            bookCount: allBooks.length,
+                            readerCount: allReaders.length,
+                            grandTotalMinutes: grandTotalMinutes
+                        };
+
+                        dataCache.put('summary', summaryData);
+                        console.log('Returned just now...');
+                        deffered.resolve(summaryData); //это будет результатом его резолвт состояния
+                    });
+            }
+
+            return deffered.promise; //вернуть промис
+        }
 
         function getAllBooks () {
 
