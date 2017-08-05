@@ -200,28 +200,39 @@
             return $q.reject('Error deleting book.(HTTP status: '+response.status+')');
         }
 
-        function getAllReaders(){
-             return [
-                {
-                    reader_id: 1,
-                    name: 'Sasha',
-                    weeklyReadingGoal: 310,
-                    totalMinutesRead: 3000
-                },
-                {
-                    reader_id: 2,
-                    name: 'Katya',
-                    weeklyReadingGoal: 200,
-                    totalMinutesRead: 6000
-                },
-                {
-                    reader_id: 3,
-                    name: 'Stas',
-                    weeklyReadingGoal: 500,
-                    totalMinutesRead: 1500
-                }
-            ];
-        }
+        function getAllReaders() {
+
+                var readersArray = [
+                    {
+                        reader_id: 1,
+                        name: 'Marie',
+                        weeklyReadingGoal: 315,
+                        totalMinutesRead: 5600
+                    },
+                    {
+                        reader_id: 2,
+                        name: 'Daniel',
+                        weeklyReadingGoal: 210,
+                        totalMinutesRead: 3000
+                    },
+                    {
+                        reader_id: 3,
+                        name: 'Lanier',
+                        weeklyReadingGoal: 140,
+                        totalMinutesRead: 600
+                    }
+                ];
+
+                var deferred = $q.defer();
+
+                $timeout(function() {
+
+                    deferred.resolve(readersArray);
+
+                }, 1500);
+
+                return deferred.promise;
+            }
     }
         
 }());

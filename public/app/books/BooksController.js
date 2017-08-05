@@ -82,7 +82,24 @@
             $log.error(errorMessage);
         }
         
-        vm.allReaders = dataService.getAllReaders();
+        //Changed to promises below:
+        //vm.allReaders = dataService.getAllReaders();
+
+        dataService.getAllReaders()
+            .then(getReadersSuccess)
+            .catch(errorCallback)
+            .finally(getAllReadersComplete);
+
+        function getReadersSuccess(readers) {
+            $log.awesome('All readers are here');
+            vm.allReaders = readers;
+        }
+
+        function getAllReadersComplete() {
+            //$log.awesome('All readers retrieved');
+        }
+
+
         vm.getBadge = badgeService.retrieveBadge;
 
         vm.favoriteBook = $cookies.favoriteBook;
@@ -94,5 +111,8 @@
         // console.log(currentUser.lastBookEdited);
     }
 
+    function errorCallback(errorMsg) {
+        console.log('Error Message: ' + errorMsg);
+    }
 
 }());
